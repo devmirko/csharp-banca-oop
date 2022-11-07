@@ -13,13 +13,28 @@ if (esistente == null)
 {
     Console.WriteLine("errore: Cliente non trovato!");
 }
-else
+
+//modifica cliente
+Cliente Cliente_NEW = new Cliente("pippo", "franco", "mdxrgfzht", 1000);
+banca.ModificaCliente(Cliente_NEW);
+
+DateOnly inizio = DateOnly.FromDateTime(DateTime.Now);
+DateOnly fine = inizio.AddMonths(24);
+
+//aggiungi prestito
+Prestito prestito_1 = new Prestito(123, 900, 100, inizio, fine, Cliente_NEW);
+banca.AggiungiPrestito(prestito_1);
+
+//ricerca prestiti
+List<Prestito> prestiti = banca.RicercaPrestito("mdxrgfzht");
+foreach (Prestito prestito in prestiti)
 {
-
-    Console.WriteLine("Ammontare del prestito: ");
-    int ammontarePrestito = Convert.ToInt32(Console.ReadLine());
-    Prestito nuovoPrestito = new Prestito(0, ammontarePrestito, 0, new DateOnly(), esistente);
-
-    banca.AggiungiPrestito(nuovoPrestito);
+    Console.WriteLine(" Prestito: totale{0}", prestito.Ammontare);
+    Console.WriteLine(" Prestito: rata da {0}", prestito.ValoreRata);
 }
+
+
+
+
+
 

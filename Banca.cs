@@ -176,6 +176,24 @@ public class Banca
 
     }
 
+    //public List<int> RateMancantiCliente(string codiceFiscale)
+    //{
+    //    int rateMancanti = 0;
+
+    //    List<int> totaleRate = new List<int>();
+
+    //    List<Prestito> prestitiCliente = RicercaPrestito(codiceFiscale);
+
+
+
+
+
+
+
+
+
+    //}
+
 
 
 
@@ -187,4 +205,5 @@ public class Banca
 
 
 //rate mancanti clienti
+
 
