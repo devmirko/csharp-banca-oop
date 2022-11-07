@@ -27,6 +27,7 @@
 //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
 
 
+using System.Collections.Generic;
 using System.Security.AccessControl;
 
 public class Banca
@@ -45,19 +46,24 @@ public class Banca
 
     //Aggiungi cliente
 
-    public bool AggiungiCliente(string nome, string cognome, string codiceFiscale, int stipendio)
+    public bool AggiungiCliente(Cliente cliente)
     {
         if (
-           nome == null || nome == "" ||
-           cognome == null || cognome == "" ||
-           codiceFiscale == null || codiceFiscale == "" ||
-           stipendio < 0
+           cliente.Nome == null || cliente.Nome == "" ||
+           cliente.Cognome == null || cliente.Cognome == "" ||
+           cliente.CodiceFiscale == null || cliente.CodiceFiscale == "" ||
+           cliente.Stipendio < 0
            )
         {
             return false;
         }
+        Cliente Cliente_esistente = RicercaCliente(cliente.CodiceFiscale);
+        if (Cliente_esistente != null)
+        {
+            return false;
+        }
+            
 
-        Cliente cliente = new Cliente(nome, cognome, codiceFiscale, stipendio);
         Clienti.Add(cliente);
 
         return true;
@@ -110,12 +116,25 @@ public class Banca
     ////ricerca prestito
     public List<Prestito> RicercaPrestito(string codiceFiscale)
     {
+        //creamo una nuova lista dove inseire i prestiti trovati
         List<Prestito> trovati = new List<Prestito>();
 
+        //facciamo un controllo che i dati inseriti siano corretti
         if(codiceFiscale == null || codiceFiscale == "") {
 
             return null;
         }
+
+        Cliente cliente = RicercaCliente(codiceFiscale);
+       foreach (Prestito prestito in Prestiti)
+        {
+            if(prestito.Intestatario.CodiceFiscale == cliente.CodiceFiscale)
+            {
+                trovati.Add(prestito);
+            }
+        }
+
+
 
 
 
@@ -137,6 +156,26 @@ public class Banca
 
     }
 
+    //totale prestiti cliente
+    public int AmmontareTotalePrestitiCliente(string codiceFiscale)
+    {
+        int ammontare = 0;
+        //creamo una nuova lista dove inseire i prestiti trovati per un cliente
+        List<Prestito> PrestitiCliente = RicercaPrestito(codiceFiscale);
+
+        //andiamo a prendere gli elementi nella lista creata
+        foreach (Prestito prestito in PrestitiCliente)
+        {
+            //andiamo a sommarli tra di loro
+            ammontare += prestito.Ammontare;
+        }
+
+        return ammontare;
+
+
+
+    }
+
 
 
 
@@ -146,7 +185,6 @@ public class Banca
 
 
 
-//ricerca prestito
-//totale prestiti cliente
+
 //rate mancanti clienti
 

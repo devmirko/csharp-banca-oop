@@ -6,7 +6,6 @@ public class Prestito
     //prestito in partenza dalla data specificata
     public Prestito( int iD, int ammontare, int valoreRata, DateOnly inizio, DateOnly fine, Cliente intestatario)
     {
-        this.ammontarePrestito = ammontarePrestito;
         ID = iD;
         Ammontare = ammontare;
         ValoreRata = valoreRata;
