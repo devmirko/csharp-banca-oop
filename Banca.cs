@@ -27,6 +27,8 @@
 //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
 
 
+using System.Security.AccessControl;
+
 public class Banca
 {
     public string Nome { get; set; }
@@ -41,7 +43,97 @@ public class Banca
         Prestiti = new List<Prestito>();
     }
 
+    //Aggiungi cliente
+
+    public bool AggiungiCliente(string nome, string cognome, string codiceFiscale, int stipendio)
+    {
+        if (
+           nome == null || nome == "" ||
+           cognome == null || cognome == "" ||
+           codiceFiscale == null || codiceFiscale == "" ||
+           stipendio < 0
+           )
+        {
+            return false;
+        }
+
+        Cliente cliente = new Cliente(nome, cognome, codiceFiscale, stipendio);
+        Clienti.Add(cliente);
+
+        return true;
+
+
+
+    }
+
+    //ricerca cliente
+    public Cliente RicercaCliente(string codiceFiscale)
+    {
+        foreach (Cliente cliente in Clienti)
+        {
+            if (cliente.CodiceFiscale == codiceFiscale)
+                return cliente;
+        }
+        return null;
+
+    }
+
+    //modifica cliente
+    public bool ModificaCliente(Cliente clienteMod)
+    {
+        Cliente cliente = RicercaCliente(clienteMod.CodiceFiscale);
+        if(cliente == null)
+        {
+            return false;
+        }
+        if(clienteMod.Nome != "")
+        {
+            cliente.Nome = clienteMod.Nome;
+        }
+        if (clienteMod.Cognome != "")
+        {
+            cliente.Cognome = clienteMod.Cognome;
+
+        }
+        if (clienteMod.Stipendio > 0)
+        {
+            cliente.Stipendio = clienteMod.Stipendio;
+
+        }
+
+
+        return true;
+
+    }
+
+
+    //aggiungi prestito
+    public List<Prestito> RicercaPrestito(string codiceFiscale)
+    {
+        List<Prestito> trovati = new List<Prestito>();
+
+        if(codiceFiscale == null || codiceFiscale == "") {
+
+            return null;
+        }
+
+        
+
+        return trovati;
+
+    }
+
+
+
+
+
 
 }
 
-//Aggiungi cliente
+
+
+//aggiungi prestito
+//ricerca prestito
+//totale prestiti cliente
+//rate mancanti clienti
+
