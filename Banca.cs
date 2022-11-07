@@ -107,7 +107,7 @@ public class Banca
     }
 
 
-    //aggiungi prestito
+    ////ricerca prestito
     public List<Prestito> RicercaPrestito(string codiceFiscale)
     {
         List<Prestito> trovati = new List<Prestito>();
@@ -117,9 +117,23 @@ public class Banca
             return null;
         }
 
-        
+
+
+
+
+
 
         return trovati;
+
+    }
+    //aggiungi prestito
+
+    public bool AggiungiPrestito(Prestito nuovoPrestito)
+    {
+        Prestiti.Add(nuovoPrestito);
+
+        return true;
+
 
     }
 
@@ -132,7 +146,6 @@ public class Banca
 
 
 
-//aggiungi prestito
 //ricerca prestito
 //totale prestiti cliente
 //rate mancanti clienti
